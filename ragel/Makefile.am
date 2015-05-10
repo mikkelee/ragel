@@ -1,5 +1,5 @@
 
-INCLUDES = -I$(top_srcdir)/aapl
+AM_CPPFLAGS = -I$(top_srcdir)/aapl
 
 bin_PROGRAMS = ragel
 
