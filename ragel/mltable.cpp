@@ -807,7 +807,7 @@ void OCamlTabCodeGen::writeData()
 
 	STATE_IDS();
 
-  out << "type state = { mutable keys : int; mutable trans : int; mutable acts : int; mutable nacts : int; }"
+  out << "type " << TYPE_STATE() << " = { mutable keys : int; mutable trans : int; mutable acts : int; mutable nacts : int; }"
     << TOP_SEP();
 
   out << "exception Goto_match" << TOP_SEP();
@@ -1082,7 +1082,7 @@ void OCamlTabCodeGen::writeExec()
 				"	begin\n"
         "   state.trans <- " << CAST(transType) << "(" << AT( ET(), vCS() ) << " - 1);\n"
 				"		raise Goto_eof_trans;\n"
-				"	end\n";
+				"	end;\n";
 		}
 
 		if ( redFsm->anyEofActions() ) {
