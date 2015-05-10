@@ -20,7 +20,7 @@
 #   along with Ragel; if not, write to the Free Software
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-while getopts "gcnmleT:F:G:P:CDJRAZ" opt; do
+while getopts "gcnmleT:F:G:P:CDJRAZx" opt; do
 	case $opt in
 		T|F|G|P) 
 			genflags="$genflags -$opt$OPTARG"
@@ -40,6 +40,9 @@ while getopts "gcnmleT:F:G:P:CDJRAZ" opt; do
 		C|D|J|R|A|Z)
 			langflags="$langflags -$opt"
 			;;
+        x)
+            no_recompile="true"
+            ;;
 	esac
 done
 
@@ -108,9 +111,13 @@ function run_test()
 
 	# Ruby doesn't need to be compiled.
 	if [ $lang != ruby ]; then
-		echo "$compiler ${cflags} ${out_args} ${code_src}"
-		if ! $compiler ${cflags} ${out_args} ${code_src}; then
-			test_error;
+        if [ ! -e $binary ] || [ "$no_recompile" != "true" ]; then
+            echo "$compiler ${cflags} ${out_args} ${code_src}"
+            if ! $compiler ${cflags} ${out_args} ${code_src}; then
+                test_error;
+            fi
+        else
+            echo "NB: not recompiling ($binary exists).";
 		fi
 	fi
 
