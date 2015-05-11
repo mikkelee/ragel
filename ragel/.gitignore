@@ -1,9 +1,6 @@
 /tags
 /Makefile
 /Makefile.in
-/rlscan.cpp
-/rlparse.cpp
-/rlparse.h
 /version.h
 /config.h
 /config.h.in
