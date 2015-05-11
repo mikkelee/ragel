@@ -16,6 +16,9 @@ and "yes" in version control. You will need the following programs:
  * ragel (the most recent version)
  * kelbt (the most recent version)
 
+NB: Building the parsers is not possible, as kelbt is no longer available.
+Instead, the generated files are included in this repository. /mikkelee
+
 To build the user guide set "build_manual=yes" in the DIST file and
 reconfigure. You will need the following extra programs:
 
@@ -27,6 +30,7 @@ reconfigure. You will need the following extra programs:
 
 Ragel uses autoconf and automake. 
 
+$ ./autogen.sh
 $ ./configure --prefix=PREFIX
 $ make
 $ make install
