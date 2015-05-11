@@ -1,0 +1,7 @@
+2015-05-11: I've renamed the original master branch to rewrite/condition.
+
+It diverged from the ragel-6 branch with commit "9e8a911 Starting on the condition implementation rewrite."
+
+See the ragel-6 branch for the most recent version (6.9 as of this writing).
+
+Mikkel Eide Eriksen
