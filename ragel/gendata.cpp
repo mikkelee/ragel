@@ -452,6 +452,7 @@ CodeGenData::CodeGenData( ostream &out )
 	noPrefix(false),
 	noFinal(false),
 	noError(false),
+	noEntry(false),
 	noCS(false)
 {}
 
@@ -837,6 +838,10 @@ void CodeGenData::analyzeAction( GenAction *act, GenInlineList *inlineList )
 				redFsm->bAnyActionCalls = true;
 			else if ( item->type == GenInlineItem::Ret )
 				redFsm->bAnyActionRets = true;
+
+			if ( item->type == GenInlineItem::CallExpr || item->type == GenInlineItem::GotoExpr )
+				redFsm->bAnyActionByValControl = true;
+
 		}
 
 		/* Check for various things in regular actions. */
@@ -1079,6 +1084,8 @@ bool CodeGenData::writeStatement( InputLoc &loc, int nargs, char **args )
 				noPrefix = true;
 			else if ( strcmp( args[i], "nofinal" ) == 0 )
 				noFinal = true;
+			else if ( strcmp( args[i], "noentry" ) == 0 )
+				noEntry = true;
 			else
 				write_option_error( loc, args[i] );
 		}

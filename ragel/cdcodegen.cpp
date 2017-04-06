@@ -361,6 +361,14 @@ string FsmCodeGen::WIDE_KEY( RedStateAp *state, Key key )
 	}
 }
 
+void FsmCodeGen::EOF_CHECK( ostream &ret )
+{
+	ret << 
+		"	if ( " << P() << " == " << PE() << " )\n"
+		"		goto _test_eof;\n";
+
+	testEofUsed = true;
+}
 
 
 void FsmCodeGen::EXEC( ostream &ret, GenInlineItem *item, int targState, int inFinish )
@@ -656,7 +664,7 @@ void FsmCodeGen::STATE_IDS()
 
 	out << "\n";
 
-	if ( entryPointNames.length() > 0 ) {
+	if ( !noEntry && entryPointNames.length() > 0 ) {
 		for ( EntryNameVect::Iter en = entryPointNames; en.lte(); en++ ) {
 			STATIC_VAR( "int", DATA_PREFIX() + "en_" + *en ) << 
 					" = " << entryPointIds[en.pos()] << ";\n";
